@@ -2,7 +2,7 @@ createCloudEventSQL: "create table `cloud_event_{table}`(
 													`cloud_event_info_id` bigint unsigned NOT NULL AUTO_INCREMENT,
 													`cloud_event_id` varchar(255) not null default '' comment 'cloudevent 对象id',
 													`cloud_event_topic` varchar(511) not null comment 'tpoic',
-													`cloud_event_storage_node_adress` varchar(31) not null comment '存储节点地址',
+													`cloud_event_storage_node_address` varchar(31) not null comment '存储节点地址',
 													`cloud_event_type` varchar(31) not null comment '事件类型',
 													`cloud_event_producer_group_name` varchar(255) not null comment '生产者组名',
 													`cloud_event_source` varchar(255) not null comment '事件来源',
@@ -20,7 +20,7 @@ createCloudEventSQL: "create table `cloud_event_{table}`(
 													PRIMARY KEY (`cloud_event_info_id`),
 													key (`cloud_event_create_time`)
 											)"
-insertCloudEventSQL: "insert into cloud_event_{table}(cloud_event_id,cloud_event_topic,cloud_event_storage_node_adress,cloud_event_type,cloud_event_producer_group_name,
+insertCloudEventSQL: "insert into cloud_event_{table}(cloud_event_id,cloud_event_topic,cloud_event_storage_node_address,cloud_event_type,cloud_event_producer_group_name,
 cloud_event_source,cloud_event_content_type,cloud_event_tag,cloud_event_extensions,cloud_event_data) values(?,?,?,?,?,?,?,?,?,?)"
 updateCloudEventOffsetSQL: "update cloud_event_{table} set cloud_event_state = 'SUCCESS'  where cloud_event_info_id = ?"
 updateCloudEventReplySQL: "update cloud_event_{table}  set  cloud_event_reply_data = ? , cloud_event_reply_state = 'NOTHING' where cloud_event_info_id = ?"
