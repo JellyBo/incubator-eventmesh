@@ -14,15 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.eventmesh.api.connector.storage.data;
 
 public enum CloudEventStateEnums {
 
-	NOTHING,
-	WAITING,
-	WAITING_DELAY,
-	PULL,
-	SUCCESS,
-	FAIL,
-	;
+    NOTHING,
+    WAITING,
+    WAITING_DELAY,
+    PULL,
+    SUCCESS,
+    FAIL,
+    ;
 }

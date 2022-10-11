@@ -1,6 +1,6 @@
 package org.apache.eventmesh.connector.storage.jdbc;
 
-import org.apache.eventmesh.api.connector.storage.StorageConnectorMetedata;
+import org.apache.eventmesh.api.connector.storage.StorageConnectorMetadata;
 import org.apache.eventmesh.api.connector.storage.data.ConsumerGroupInfo;
 import org.apache.eventmesh.api.connector.storage.data.PullRequest;
 import org.apache.eventmesh.api.connector.storage.data.TopicInfo;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 public class AbstractJDBCStorageConnectorMetadata extends AbstractJDBCStorageConnector
-        implements StorageConnectorMetedata {
+        implements StorageConnectorMetadata {
 
     @Override
     public Set<String> getTopic() throws Exception {

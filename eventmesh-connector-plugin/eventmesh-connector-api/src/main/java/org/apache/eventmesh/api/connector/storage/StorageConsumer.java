@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.eventmesh.api.connector.storage;
 
 import org.apache.eventmesh.api.AbstractContext;
@@ -50,17 +51,17 @@ public class StorageConsumer implements Consumer {
 
     @Override
     public void start() {
-    	
-    	List<PullRequest> pullRequests = new ArrayList<PullRequest>();
-    	for(String topic : this.topicSet) {
-    		PullRequest pullRequest = new PullRequest();
-    		
-    		PullCallbackImpl pullCallback = new PullCallbackImpl();
-    		pullCallback.setEventListener(listener);
-    		pullRequest.setPullCallback(pullCallback);
-    		pullRequest.setTopicName(topic);
-    		pullRequests.add(pullRequest);
-    	}
+        
+        List<PullRequest> pullRequests = new ArrayList<PullRequest>();
+        for (String topic : this.topicSet) {
+            PullRequest pullRequest = new PullRequest();
+            
+            PullCallbackImpl pullCallback = new PullCallbackImpl();
+            pullCallback.setEventListener(listener);
+            pullRequest.setPullCallback(pullCallback);
+            pullRequest.setTopicName(topic);
+            pullRequests.add(pullRequest);
+        }
         storageOperation.start();
     }
 
@@ -81,17 +82,17 @@ public class StorageConsumer implements Consumer {
 
     @Override
     public void subscribe(String topic) throws Exception {
-    	topicSet.add(topic);
+        topicSet.add(topic);
     }
 
     @Override
     public void unsubscribe(String topic) {
-    	topicSet.remove(topic);
+        topicSet.remove(topic);
     }
 
     @Override
     public void registerEventListener(EventListener listener) {
-    	this.listener = listener;
+        this.listener = listener;
     }
 
 }

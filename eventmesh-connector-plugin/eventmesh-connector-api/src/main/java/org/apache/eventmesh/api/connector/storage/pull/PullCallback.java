@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.eventmesh.api.connector.storage.pull;
 
 import org.apache.eventmesh.api.connector.storage.data.PullRequest;
@@ -22,8 +23,10 @@ import java.util.List;
 
 import io.cloudevents.CloudEvent;
 
+/**
+ *
+ */
 public interface PullCallback {
-
 
     void onSuccess(PullRequest pullRequest, List<CloudEvent> cloudEvents);
 

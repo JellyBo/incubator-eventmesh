@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class StorageConnectorInfo {
 
-	private boolean distinguishTopic;
+    private boolean distinguishTopic;
 }

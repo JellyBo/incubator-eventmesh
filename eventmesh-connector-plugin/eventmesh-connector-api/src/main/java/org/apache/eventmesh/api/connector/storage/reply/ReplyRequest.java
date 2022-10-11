@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ReplyRequest {
 
-	private String topic;
-	
-	private List<Long> idList;
+    private String topic;
+    
+    private List<Long> idList;
 }

@@ -47,6 +47,9 @@ import java.util.Properties;
 import io.cloudevents.CloudEvent;
 
 
+/**
+ *
+ */
 @EventMeshSPI(isSingleton = false, eventMeshExtensionType = EventMeshExtensionType.CONNECTOR)
 public interface StorageConnector extends LifeCycle {
 
@@ -64,7 +67,7 @@ public interface StorageConnector extends LifeCycle {
     void updateOffset(List<CloudEvent> cloudEvents, AbstractContext context);
 
     public default int deleteCloudEvent(CloudEvent cloudEvent) {
-    	return 0;
+        return 0;
     }
 
     @Override

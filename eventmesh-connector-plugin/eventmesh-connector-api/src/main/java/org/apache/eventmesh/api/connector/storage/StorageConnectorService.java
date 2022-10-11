@@ -93,8 +93,8 @@ public class StorageConnectorService implements LifeCycle {
 
 	public StorageConnector createConsumerByStorageConnector(Properties properties) {
 		StorageConnector storageConnector = this.createConsumerByStorageConnector(properties);
-		if(storageConnector instanceof StorageConnectorMetedata) {
-			this.storageMetaServcie.registerStorageConnector((StorageConnectorMetedata)storageConnector);
+		if(storageConnector instanceof StorageConnectorMetadata) {
+			this.storageMetaServcie.registerStorageConnector((StorageConnectorMetadata)storageConnector);
 		}
 		
 		return storageConnector;

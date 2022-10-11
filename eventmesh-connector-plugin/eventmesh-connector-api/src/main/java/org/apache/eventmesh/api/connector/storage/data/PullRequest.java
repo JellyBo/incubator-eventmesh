@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.eventmesh.api.connector.storage.data;
 
 import org.apache.eventmesh.api.connector.storage.StorageConnector;
@@ -32,48 +33,48 @@ import lombok.Data;
 @Data
 public class PullRequest {
 
-	private static final AtomicLong INCREASING_ID = new AtomicLong();
+    private static final AtomicLong INCREASING_ID = new AtomicLong();
 
-	private long id = INCREASING_ID.incrementAndGet();
+    private long id = INCREASING_ID.incrementAndGet();
 
-	private String topicName;
+    private String topicName;
 
-	private String consumerGroupName;
-	
-	private String nextId;
-	
-	private String processSign;
+    private String consumerGroupName;
+    
+    private String nextId;
+    
+    private String processSign;
 
-	private StorageConnector storageConnector;
+    private StorageConnector storageConnector;
 
-	private AtomicBoolean isEliminate = new AtomicBoolean(true);
+    private AtomicBoolean isEliminate = new AtomicBoolean(true);
 
-	private AtomicInteger stock = new AtomicInteger();
+    private AtomicInteger stock = new AtomicInteger();
 
-	private PullCallback pullCallback;
-	
-	private List<PullRequest> pullRequests;
-	
-	private Map<String,PullRequest> topicAndPullRequests;
-	
-	public synchronized void setPullRequests(List<PullRequest> pullRequests) {
-		this.pullRequests = pullRequests;
-		this.topicAndPullRequests = null;
-	}
-	
-	public List<PullRequest> getPullRequests(){
-		List<PullRequest> pullRequests = this.pullRequests;
-		return pullRequests;
-	}
-	
-	public Map<String,PullRequest>  getTopicAndPullRequests(){
-		if(Objects.isNull(this.topicAndPullRequests)) {
-			Map<String,PullRequest> map = new HashMap<>();
-			for(PullRequest pullRequest : pullRequests) {
-				map.put(pullRequest.getTopicName(), pullRequest);
-			}
-			this.topicAndPullRequests = map;
-		}
-		return this.topicAndPullRequests;
-	}
+    private PullCallback pullCallback;
+    
+    private List<PullRequest> pullRequests;
+    
+    private Map<String, PullRequest> topicAndPullRequests;
+    
+    public synchronized void setPullRequests(List<PullRequest> pullRequests) {
+        this.pullRequests = pullRequests;
+        this.topicAndPullRequests = null;
+    }
+    
+    public List<PullRequest> getPullRequests() {
+        List<PullRequest> pullRequests = this.pullRequests;
+        return pullRequests;
+    }
+    
+    public Map<String, PullRequest>  getTopicAndPullRequests() {
+        if (Objects.isNull(this.topicAndPullRequests)) {
+            Map<String, PullRequest> map = new HashMap<>();
+            for (PullRequest pullRequest : pullRequests) {
+                map.put(pullRequest.getTopicName(), pullRequest);
+            }
+            this.topicAndPullRequests = map;
+        }
+        return this.topicAndPullRequests;
+    }
 }

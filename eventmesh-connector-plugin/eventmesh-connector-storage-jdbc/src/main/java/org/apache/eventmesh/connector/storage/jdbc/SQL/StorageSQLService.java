@@ -43,8 +43,7 @@ public class StorageSQLService {
     private <T> T readYaml(String path, Class<?> clazz) throws FileNotFoundException {
         File file = new File(path);
         if (!file.exists()) {
-            String errer = String.format("file does not exist , paht %s", path);
-            throw new RuntimeException(errer);
+            throw new RuntimeException(String.format("file does not exist , path %s", path));
         }
 
         Yaml yaml = new Yaml();

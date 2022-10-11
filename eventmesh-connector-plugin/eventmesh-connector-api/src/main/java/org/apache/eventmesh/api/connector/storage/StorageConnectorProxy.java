@@ -64,11 +64,11 @@ public class StorageConnectorProxy implements StorageConnector {
 	private void doPublish(CloudEvent cloudEvent, SendCallback sendCallback) {
 		try {
 			StorageConnector storageConnector = routeHandler.select();
-			if (storageConnector instanceof StorageConnectorMetedata
+			if (storageConnector instanceof StorageConnectorMetadata
 					&& !storageMetaServcie.isTopic(storageConnector, CloudEventUtils.getTopic(cloudEvent))) {
 				TopicInfo topicInfo = new TopicInfo();
-				StorageConnectorMetedata storageConnectorMetedata = (StorageConnectorMetedata)storageConnector;
-				storageConnectorMetedata.createTopic(topicInfo);
+				StorageConnectorMetadata storageConnectorMetadata = (StorageConnectorMetadata)storageConnector;
+				storageConnectorMetadata.createTopic(topicInfo);
 			}
 			storageConnector.publish(cloudEvent, sendCallback);
 		} catch (Exception e) {

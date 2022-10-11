@@ -22,7 +22,6 @@ import lombok.Data;
 /**
  * {tablename-queue}
  *
- * @author laohu
  */
 @Data
 public class TopicInfo {

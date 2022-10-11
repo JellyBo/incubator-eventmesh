@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.eventmesh.api.connector.storage.data;
 
 import java.time.LocalDateTime;
@@ -25,8 +26,8 @@ import lombok.Data;
 @Data
 public class CloudEventInfo {
 
-	private Long cloudEventInfoId;
-	
+    private Long cloudEventInfoId;
+
     private Long cloudEventId;
     
     private String cloudEventTopic;

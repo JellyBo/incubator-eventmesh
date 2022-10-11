@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.eventmesh.api.connector.storage;
 
 import org.apache.eventmesh.api.RequestReplyCallback;
@@ -64,7 +65,7 @@ public class StorageProducer implements Producer {
         try {
             storageOperation.publish(cloudEvent, null);
         } catch (Exception e) {
-        	throw new RuntimeException(e.getMessage() , e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
     }

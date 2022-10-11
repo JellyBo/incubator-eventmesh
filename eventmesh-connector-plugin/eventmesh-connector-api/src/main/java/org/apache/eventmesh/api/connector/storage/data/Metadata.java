@@ -25,7 +25,7 @@ import lombok.Data;
 @Data
 public class Metadata {
 
-	private List<PullRequest> pullRequest;
-	
-	private volatile Set<String> topicSet;
+    private List<PullRequest> pullRequest;
+
+    private volatile Set<String> topicSet;
 }

@@ -1,7 +1,7 @@
 package org.apache.eventmesh.api.connector.storage.metadata;
 
 import org.apache.eventmesh.api.connector.storage.StorageConnector;
-import org.apache.eventmesh.api.connector.storage.StorageConnectorMetedata;
+import org.apache.eventmesh.api.connector.storage.StorageConnectorMetadata;
 import org.apache.eventmesh.api.connector.storage.data.ConsumerGroupInfo;
 import org.apache.eventmesh.api.connector.storage.data.Metadata;
 import org.apache.eventmesh.api.connector.storage.data.PullRequest;
@@ -26,114 +26,114 @@ import lombok.Setter;
 
 public class StorageMetaServcie {
 
-	protected static final Logger messageLogger = LoggerFactory.getLogger("message");
+    protected static final Logger messageLogger = LoggerFactory.getLogger("message");
 
-	private static final String PROCESS_SIGN = Long.toString(System.currentTimeMillis());
-	
-	@Setter
-	private ScheduledExecutorService scheduledExecutor;
+    private static final String PROCESS_SIGN = Long.toString(System.currentTimeMillis());
+    
+    @Setter
+    private ScheduledExecutorService scheduledExecutor;
 
-	@Setter
-	private Executor executor;
-	
-	@Setter
-	private StoragePullService storagePullService;
+    @Setter
+    private Executor executor;
+    
+    @Setter
+    private StoragePullService storagePullService;
 
-	private Map<StorageConnectorMetedata, Metadata> metaDataMap = new ConcurrentHashMap<>();
+    private Map<StorageConnectorMetadata, Metadata> metaDataMap = new ConcurrentHashMap<>();
 
-	public void init() {
-		scheduledExecutor.scheduleWithFixedDelay(new Runnable() {
-			@Override
-			public void run() {
-				StorageMetaServcie.this.pullMeteData();
-			}
-		}, 5, 1000 , TimeUnit.MILLISECONDS);
-	}
+    public void init() {
+        scheduledExecutor.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                StorageMetaServcie.this.pullMeteData();
+            }
+        }, 5, 1000, TimeUnit.MILLISECONDS);
+    }
 
-	public void registerStorageConnector(StorageConnectorMetedata storageConnector) {
-		metaDataMap.put(storageConnector, new Metadata());
-	}
+    public void registerStorageConnector(StorageConnectorMetadata storageConnector) {
+        metaDataMap.put(storageConnector, new Metadata());
+    }
 
-	public void registerPullRequest(List<PullRequest> pullRequests, StorageConnector storageConnector) {
-		executor.execute(new Runnable() {
-			@Override
-			public void run() {
-				StorageMetaServcie.this.doRegisterPullRequest(pullRequests, storageConnector);
-			}
+    public void registerPullRequest(List<PullRequest> pullRequests, StorageConnector storageConnector) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                StorageMetaServcie.this.doRegisterPullRequest(pullRequests, storageConnector);
+            }
 
-		});
-	}
+        });
+    }
 
-	public void doRegisterPullRequest(List<PullRequest> pullRequests, StorageConnector storageConnector) {
-		try {
-			StorageConnectorMetedata storageConnectorMetedata = null;
-			if (storageConnector instanceof StorageConnectorMetedata) {
-				storageConnectorMetedata = (StorageConnectorMetedata) storageConnector;
-			}
+    public void doRegisterPullRequest(List<PullRequest> pullRequests, StorageConnector storageConnector) {
+        try {
+            StorageConnectorMetadata storageConnectorMetadata = null;
+            if (storageConnector instanceof StorageConnectorMetadata) {
+                storageConnectorMetadata = (StorageConnectorMetadata) storageConnector;
+            }
 
-			Map<String, ConsumerGroupInfo> consumerGroupInfoMap = new HashMap<>();
-			Set<String> topicSet = new HashSet<>();
-			Map<String, TopicInfo> topicInfoMap = new HashMap<>();
-			if (Objects.nonNull(storageConnectorMetedata)) {
-				List<ConsumerGroupInfo> consumerGroupInfos = storageConnectorMetedata.getConsumerGroupInfo();
-				consumerGroupInfos.forEach(value -> consumerGroupInfoMap.put(value.getConsumerGroupName(), value));
-				topicSet = storageConnectorMetedata.getTopic();
-				storageConnectorMetedata.geTopicInfos(pullRequests)
-						.forEach(value -> topicInfoMap.put(value.getTopicName(), value));
-			}
-			for (PullRequest pullRequest : pullRequests) {
-				if (Objects.nonNull(storageConnectorMetedata) && !topicSet.contains(pullRequest.getTopicName())) {
-					try {
-						if (!topicSet.contains(pullRequest.getTopicName())) {
-							TopicInfo topicInfo = new TopicInfo();
-							storageConnectorMetedata.createTopic(topicInfo);
-						}
-						if (!consumerGroupInfoMap.containsKey(pullRequest.getConsumerGroupName())) {
-							ConsumerGroupInfo consumerGroupInfo = new ConsumerGroupInfo();
-							storageConnectorMetedata.createConsumerGroupInfo(consumerGroupInfo);
-						}
-						TopicInfo topicInfo = topicInfoMap.get(pullRequest.getTopicName());
-						pullRequest.setNextId(Long.toString(topicInfo.getCurrentId()));
-					} catch (Exception e) {
+            Map<String, ConsumerGroupInfo> consumerGroupInfoMap = new HashMap<>();
+            Set<String> topicSet = new HashSet<>();
+            Map<String, TopicInfo> topicInfoMap = new HashMap<>();
+            if (Objects.nonNull(storageConnectorMetadata)) {
+                List<ConsumerGroupInfo> consumerGroupInfos = storageConnectorMetadata.getConsumerGroupInfo();
+                consumerGroupInfos.forEach(value -> consumerGroupInfoMap.put(value.getConsumerGroupName(), value));
+                topicSet = storageConnectorMetadata.getTopic();
+                storageConnectorMetadata.geTopicInfos(pullRequests)
+                        .forEach(value -> topicInfoMap.put(value.getTopicName(), value));
+            }
+            for (PullRequest pullRequest : pullRequests) {
+                if (Objects.nonNull(storageConnectorMetadata) && !topicSet.contains(pullRequest.getTopicName())) {
+                    try {
+                        if (!topicSet.contains(pullRequest.getTopicName())) {
+                            TopicInfo topicInfo = new TopicInfo();
+                            storageConnectorMetadata.createTopic(topicInfo);
+                        }
+                        if (!consumerGroupInfoMap.containsKey(pullRequest.getConsumerGroupName())) {
+                            ConsumerGroupInfo consumerGroupInfo = new ConsumerGroupInfo();
+                            storageConnectorMetadata.createConsumerGroupInfo(consumerGroupInfo);
+                        }
+                        TopicInfo topicInfo = topicInfoMap.get(pullRequest.getTopicName());
+                        pullRequest.setNextId(Long.toString(topicInfo.getCurrentId()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-					}
+                }
+                pullRequest.setProcessSign(PROCESS_SIGN);
+                pullRequest.setStorageConnector(storageConnector);
+                storagePullService.executePullRequestLater(pullRequest);
+            }
+        } catch (Exception e) {
+            messageLogger.error(e.getMessage(), e);
+        }
+    }
 
-				}
-				pullRequest.setProcessSign(PROCESS_SIGN);
-				pullRequest.setStorageConnector(storageConnector);
-				storagePullService.executePullRequestLater(pullRequest);
-			}
-		} catch (Exception e) {
-			messageLogger.error(e.getMessage(), e);
-		}
-	}
+    public void pullMeteData() {
+        for (StorageConnectorMetadata storageConnectorMetadata : metaDataMap.keySet()) {
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    StorageMetaServcie.this.doPullMeteData(storageConnectorMetadata);
+                }
+            });
+        }
+    }
 
-	public void pullMeteData() {
-		for (StorageConnectorMetedata storageConnectorMetedata : metaDataMap.keySet()) {
-			executor.execute(new Runnable() {
-				@Override
-				public void run() {
-					StorageMetaServcie.this.doPullMeteData(storageConnectorMetedata);
-				}
-			});
-		}
-	}
+    public void doPullMeteData(StorageConnectorMetadata storageConnectorMetadata) {
+        try {
+            Metadata metadata = new Metadata();
+            metadata.setTopicSet(storageConnectorMetadata.getTopic());
+            metaDataMap.put(storageConnectorMetadata, metadata);
+        } catch (Exception e) {
+            messageLogger.error(e.getMessage(), e);
+        }
+    }
 
-	public void doPullMeteData(StorageConnectorMetedata storageConnectorMetedata) {
-		try {
-			Metadata metadata = new Metadata();
-			metadata.setTopicSet(storageConnectorMetedata.getTopic());
-			metaDataMap.put(storageConnectorMetedata, metadata);
-		} catch (Exception e) {
-			messageLogger.error(e.getMessage(), e);
-		}
-	}
+    public boolean isTopic(StorageConnector storageConnector, String topic) {
+        if (storageConnector instanceof StorageConnectorMetadata) {
+            return metaDataMap.get((StorageConnectorMetadata) storageConnector).getTopicSet().contains(topic);
+        }
+        return true;
 
-	public boolean isTopic(StorageConnector storageConnector, String topic) {
-		if (storageConnector instanceof StorageConnectorMetedata) {
-			return metaDataMap.get((StorageConnectorMetedata) storageConnector).getTopicSet().contains(topic);
-		}
-		return true;
-
-	}
+    }
 }
