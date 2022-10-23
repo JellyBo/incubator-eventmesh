@@ -32,7 +32,7 @@ public class CloudEventInfo {
     
     private String cloudEventTopic;
     
-    private String cloudEventStorageNodeAdress;  
+    private String cloudEventStorageNodeAddress;
 
     private String cloudEventType;
 

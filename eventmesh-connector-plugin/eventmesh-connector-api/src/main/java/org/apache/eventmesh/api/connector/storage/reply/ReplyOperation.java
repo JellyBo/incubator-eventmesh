@@ -12,7 +12,7 @@ public interface ReplyOperation {
 
     List<CloudEventInfo>  queryReplyCloudEvent(ReplyRequest replyRequest) throws Exception;
     
-    public default List<CloudEventInfo>  queryReplyCloudEvent(List<ReplyRequest> replyRequestList) throws Exception {
+    default List<CloudEventInfo>  queryReplyCloudEvent(List<ReplyRequest> replyRequestList) throws Exception {
         List<CloudEventInfo> cloudEventInfoList = new ArrayList<CloudEventInfo>();
         for (ReplyRequest replyRequest : replyRequestList) {
             cloudEventInfoList.addAll(this.queryReplyCloudEvent(replyRequest));

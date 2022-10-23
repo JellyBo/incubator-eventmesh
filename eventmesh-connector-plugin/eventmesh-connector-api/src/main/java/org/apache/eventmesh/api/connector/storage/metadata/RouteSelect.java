@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface RouteSelect {
 
-    public StorageConnector select(List<StorageConnector>  storageConnector);
+    StorageConnector select(List<StorageConnector>  storageConnector);
 }

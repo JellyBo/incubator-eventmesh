@@ -60,23 +60,23 @@ public interface StorageConnector extends LifeCycle {
 
     void request(CloudEvent cloudEvent, RequestReplyCallback rrCallback, long timeout) throws Exception;
     
-    public boolean reply(CloudEvent cloudEvent, SendCallback sendCallback) throws Exception;
+    boolean reply(CloudEvent cloudEvent, SendCallback sendCallback) throws Exception;
 
-    public List<CloudEvent> pull(PullRequest pullRequest)  throws Exception;
+    List<CloudEvent> pull(PullRequest pullRequest)  throws Exception;
 
     void updateOffset(List<CloudEvent> cloudEvents, AbstractContext context);
 
-    public default int deleteCloudEvent(CloudEvent cloudEvent) {
+    default int deleteCloudEvent(CloudEvent cloudEvent) {
         return 0;
     }
 
     @Override
-    public default boolean isStarted() {
+    default boolean isStarted() {
         return true;
     }
 
     @Override
-    public default boolean isClosed() {
+    default boolean isClosed() {
         return false;
     }
 

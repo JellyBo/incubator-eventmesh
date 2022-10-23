@@ -39,7 +39,7 @@ public class CloudEventUtils {
         return null;
     }
     
-    public static String getNodeAdress(CloudEvent cloudEvent) {
+    public static String getNodeAddress(CloudEvent cloudEvent) {
         return (String) cloudEvent.getExtension(Constant.NODE_ADDRESS);
     }
     

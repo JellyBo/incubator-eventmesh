@@ -12,14 +12,14 @@ import java.util.Set;
  */
 public interface StorageConnectorMetadata {
 
-    public Set<String> getTopic() throws Exception;
+    Set<String> getTopic() throws Exception;
 
-    public List<ConsumerGroupInfo> getConsumerGroupInfo() throws Exception;
+    List<ConsumerGroupInfo> getConsumerGroupInfo() throws Exception;
 
-    public List<TopicInfo> geTopicInfos(List<PullRequest> pullRequests) throws Exception;
+    List<TopicInfo> geTopicInfos(List<PullRequest> pullRequests) throws Exception;
 
-    public int createTopic(TopicInfo topicInfo) throws Exception;
+    int createTopic(TopicInfo topicInfo) throws Exception;
 
-    public int createConsumerGroupInfo(ConsumerGroupInfo consumerGroupInfo) throws Exception;
+    int createConsumerGroupInfo(ConsumerGroupInfo consumerGroupInfo) throws Exception;
 
 }

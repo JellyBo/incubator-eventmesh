@@ -26,7 +26,6 @@ package org.apache.eventmesh.api.connector.storage.data;
  * 存储的实例信息，是无法注册
  * 127.0.0.1:3306
  *
- * @author laohu
  * serviceInfo mysql地址。会去取元数据，表明，
  * 表明，直接读取mysql
  */
